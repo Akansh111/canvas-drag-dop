@@ -4,7 +4,8 @@ export const Triangle = (props = {}) => {
     const {
         width,
         height,
-        toolbarAction = 'scissor',
+        toolbarAction,
+        dropTarget = 'triangle',
         color
     } = props;
 
@@ -12,7 +13,7 @@ export const Triangle = (props = {}) => {
     const canvas2 = React.useRef(null);
 
     React.useLayoutEffect(() => {
-        if (toolbarAction === 'scissor') {
+        if (dropTarget === 'triangle' && toolbarAction === 'scissor') {
             const context1 = canvas1.current.getContext("2d");
             const context2 = canvas2.current.getContext("2d");
 
@@ -30,7 +31,7 @@ export const Triangle = (props = {}) => {
             context2.fillStyle = color;
             context2.fill(path1);
 
-        } else if (toolbarAction === 'glue') {
+        } else if (dropTarget === 'triangle' && toolbarAction === 'glue') {
             const context = canvas1.current.getContext("2d");
             var path=new Path2D();
             path.moveTo((width/2)+50,height);
@@ -39,7 +40,7 @@ export const Triangle = (props = {}) => {
             context.fillStyle = color;
             context.fill(path);
         }
-    }, [toolbarAction, width, height, color]);
+    }, [width, height, color, dropTarget]);
 
     return (
         <div>

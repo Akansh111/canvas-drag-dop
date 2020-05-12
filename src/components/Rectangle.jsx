@@ -6,15 +6,17 @@ export const Rectangle = (props = {}) => {
         width,
         height,
         color,
-        toolbarAction = 'scissor'
+        toolbarAction,
+        dropTarget = 'rectangle'
     } = props;
 
     const canvas1 = React.useRef(null);
     const canvas2 = React.useRef(null);
 
-
+    console.log(toolbarAction, dropTarget)
     React.useLayoutEffect(() => {
-        if (toolbarAction === 'scissor') {
+        console.log("droptarget", dropTarget);
+        if (dropTarget === 'rectangle' && toolbarAction === 'scissor') {
             const context1 = canvas1.current.getContext("2d");
             const context2 = canvas2.current.getContext("2d");
             context1.beginPath();
@@ -27,7 +29,7 @@ export const Rectangle = (props = {}) => {
             context2.fillRect(10, 10, width, height);
             context2.closePath();
 
-        } else if (toolbarAction === 'glue') {
+        } else if (dropTarget === 'rectangle' && toolbarAction === 'glue') {
             const context1 = canvas1.current.getContext("2d");
             context1.beginPath();
             context1.fillStyle = color;
@@ -35,7 +37,7 @@ export const Rectangle = (props = {}) => {
             context1.closePath();
         }
 
-    }, [toolbarAction, width, height, color]);
+    }, [dropTarget]);
 
     return (
         <div>
@@ -49,8 +51,6 @@ export const Rectangle = (props = {}) => {
                         </div> :
                         ''
             }
-
-
         </div>
     )
 };
