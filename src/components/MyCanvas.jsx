@@ -1,22 +1,32 @@
-import React , {useEffect} from 'react';
+import React from 'react';
 import { Rectangle } from './Rectangle';
 import { Circle } from './Circle';
 import { Triangle } from './Triangle';
 import './MyCanvas.css';
 import { Toolbar } from './Toolbar';
-import canvasJson from '../assets/canvas.json';
+import canvasJson from '../assets/json/canvas.json';
 
 export const MyCanvas = (props) => {
       
-   useEffect(()=>{
-    fetch(canvasJson, {
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }}).then((response) => response.json()).then((data)=>{
-        console.log(data)
-       })
-   },[])
+    // React.useEffect(() => {
+    //     fetch('https://raw.githubusercontent.com/Akansh111/canvas-drag-dop/master/src/assets/canvas.json')            
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log(JSON.parse(data));
+    //         })
+    //         .catch(err => console.log(err));
+    // }, [])
+
+    console.log(canvasJson);
+//    useEffect(()=>{
+//     fetch(canvasJson, {
+//         headers : { 
+//           'Content-Type': 'application/json',
+//           'Accept': 'application/json'
+//          }}).then((response) => response.json()).then((data)=>{
+//         console.log(data)
+//        })
+//    },[])
 
    const onDragStart=(ev,id)=>{
     console.log(ev,id)

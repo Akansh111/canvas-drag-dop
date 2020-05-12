@@ -13,3 +13,12 @@
     display: block;
     cursor: move;
 }
+.split-rec, .split-circle, .split-triangle {
+    display: flex;
+}
+.split-rec:first-child {
+    margin-right: 20px;
+}
+.split-circle canvas {
+    margin-right: 20px;
+}
