@@ -30,6 +30,7 @@ const onDrop = (ev, cat) => {
     console.log(ev)
     ev.preventDefault();  
 }
+
    
     return (
         <div className="my-canvas">
