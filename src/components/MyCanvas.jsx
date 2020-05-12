@@ -1,49 +1,46 @@
-import React , {useEffect} from 'react';
+import React, { useState } from 'react';
 import { Rectangle } from './Rectangle';
 import { Circle } from './Circle';
 import { Triangle } from './Triangle';
 import './MyCanvas.css';
 import { Toolbar } from './Toolbar';
-import canvasJson from '../assets/canvas.json';
+import canvasJson from '../assets/json/canvas.json';
+
 
 export const MyCanvas = (props) => {
-      
-   useEffect(()=>{
-    fetch(canvasJson, {
-        headers : { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-         }}).then((response) => response.json()).then((data)=>{
-        console.log(data)
-       })
-   },[])
+    console.log(canvasJson)
+    const [initialTarget, setInitialTarget] = useState('glue');
+    const [dropTarget, setDropTarget] = useState(null);
 
-   const onDragStart=(ev,id)=>{
-    console.log(ev,id)
-   ev.dataTransfer.setData("id",id)
-}
+    const onDragStart = (ev, targetId) => {
+        console.log(ev, targetId)
+        setInitialTarget(targetId)
+        ev.dataTransfer.setData("id", targetId)
+    }
 
- const  onDragOver = (ev) => {
-    ev.preventDefault();
-}
-const onDrop = (ev, cat) => {
-    console.log(ev)
-    ev.preventDefault();  
-}
 
-   
+    const onDrop = (event, targetObj) => {
+        console.log(targetObj);
+        setDropTarget(targetObj)
+    }
+    const onDragOver = (event) => {
+        event.preventDefault()
+    }
+
+
     return (
         <div className="my-canvas">
-            <div className="rectangle-container">
-                <Rectangle width={200}  height={200} pixelRatio={window.devicePixelRatio} color={'#ed7d31'}  onDragOver={(event)=>onDragOver(event)} onDrop={(event)=>onDrop(event, "Done")}/>
+            <div className="rectangle-container" onDragOver={(event) => onDragOver(event)} onDrop={(event) => { onDrop(event, 'rectangle') }} toolbarAction={initialTarget} dropTarget={dropTarget}>
+                <Rectangle width={canvasJson.canvasDimensions.rectangle.width} height={canvasJson.canvasDimensions.rectangle.height} pixelRatio={window.devicePixelRatio} color={canvasJson.canvasDimensions.rectangle.color}
+                />
             </div>
-            <div className="circle-container">
-                <Circle width={200}  height={200} pixelRatio={window.devicePixelRatio} color={'#ffc003'} onDragOver={(event)=>onDragOver(event)} />
+            <div className="circle-container" onDragOver={(event) => onDragOver(event)} onDrop={(event) => { onDrop(event, 'circle') }} toolbarAction={initialTarget} dropTarget={dropTarget}>
+                <Circle width={canvasJson.canvasDimensions.circle.width} height={canvasJson.canvasDimensions.circle.height} pixelRatio={window.devicePixelRatio} color={canvasJson.canvasDimensions.circle.color} />
             </div>
-            <div className="traingle-container">
-                <Triangle width={200}  height={200} pixelRatio={window.devicePixelRatio} color={'#70ad47'} onDragOver={(event)=>onDragOver(event)}/>
+            <div className="traingle-container" onDragOver={(event) => onDragOver(event)} onDrop={(event) => { onDrop(event, 'triangle') }} toolbarAction={initialTarget} dropTarget={dropTarget}>
+                <Triangle width={canvasJson.canvasDimensions.triangle.width} height={canvasJson.canvasDimensions.triangle.height} pixelRatio={window.devicePixelRatio} color={canvasJson.canvasDimensions.triangle.color} />
             </div>
-            <Toolbar onDragStart={(ev, name)=>onDragStart(ev,name)} ></Toolbar>
-        </div>     
+            <Toolbar onDragStart={(ev, name) => onDragStart(ev, name)} ></Toolbar>
+        </div>
     )
-  };
+};

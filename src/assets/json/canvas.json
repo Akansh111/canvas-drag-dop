@@ -1,4 +1,5 @@
 {
+
     "canvasDimensions": {
     "rectangle":{
         "width":"100",
@@ -18,7 +19,5 @@
         "color":"#70ad47"
     
     }
-    },
-    "toolbaar" :["eraser","glue","scissor"]
     }
-    
+    }
